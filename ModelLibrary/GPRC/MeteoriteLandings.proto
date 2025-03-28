@@ -7,6 +7,7 @@ option csharp_namespace = "ModelLibrary.GRPC";
 import "google/protobuf/timestamp.proto";
 
 service MeteoriteLandingsService {
+  rpc GetSmallPayload(EmptyRequest) returns (Version) {}
   rpc GetLargePayload(EmptyRequest) returns (stream MeteoriteLanding) {}
   rpc GetLargePayloadAsList(EmptyRequest) returns (MeteoriteLandingList) {}
   rpc PostLargePayload(MeteoriteLandingList) returns (StatusResponse) {}
@@ -17,6 +18,10 @@ message EmptyRequest {
 
 message StatusResponse {
   string status = 1;
+}
+
+message Version {
+  string api_version = 1;
 }
 
 message GeoLocation {

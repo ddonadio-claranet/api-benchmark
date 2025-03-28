@@ -13,7 +13,7 @@ public class BenchmarkHarness
     [Params(100, 200)]
     public int IterationCount;
 
-    readonly RestClient restClient = new RestClient();
+    readonly RestClient restClient = new ();
     readonly GrpcClient grpcClient = new();
 
     [Benchmark]

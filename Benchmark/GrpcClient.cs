@@ -1,19 +1,18 @@
-using Grpc.Core;
+using Grpc.Net.Client;
 using ModelLibrary.GRPC;
 
 namespace Benchmark;
 
 public class GrpcClient
 {
-    private readonly Channel channel;
+    private readonly GrpcChannel channel;
     private readonly MeteoriteLandingsService.MeteoriteLandingsServiceClient client;
 
     public GrpcClient()
     {
-        channel = new Channel("localhost:6000", ChannelCredentials.Insecure);
+        channel = GrpcChannel.ForAddress("http://localhost:5231");
         client = new MeteoriteLandingsService.MeteoriteLandingsServiceClient(channel);
     }
-
     public async Task<string> GetSmallPayloadAsync()
     {
         return (await client.GetVersionAsync(new EmptyRequest())).ApiVersion;
@@ -24,7 +23,7 @@ public class GrpcClient
         var meteoriteLandings = new List<MeteoriteLanding>();
 
         var response = client.GetLargePayload(new EmptyRequest()).ResponseStream;
-        while (await response.MoveNext())
+        while (await response.MoveNext(CancellationToken.None))
         {
             meteoriteLandings.Add(response.Current);
         }

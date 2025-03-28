@@ -6,7 +6,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        BenchmarkRunner.Run<BenchmarkHarness>();
+        var config = new AllowNonOptimized();
+        BenchmarkRunner.Run<BenchmarkHarness>(config);
         Console.ReadKey();
     }
 }
