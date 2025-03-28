@@ -1,23 +1,31 @@
 using Grpc.Core;
+using ModelLibrary.Data;
 using ModelLibrary.GRPC;
+
 
 namespace gRpcApi.Services;
 
-public class MeteoriteLandingService
+public class MeteoriteLandingService(ILogger<MeteoriteLandingService> logger)
+    : MeteoriteLandingsService.MeteoriteLandingsServiceBase
 {
-    private readonly Server server = new()
+    private readonly ILogger<MeteoriteLandingService> _logger = logger;
+    
+    
+    public override async Task GetLargePayload(EmptyRequest request, IServerStreamWriter<MeteoriteLanding> responseStream, ServerCallContext context)
     {
-        Services = { MeteoriteLandingsService.BindService(new MeteoriteLandingsServiceImpl()) },
-        Ports = { new ServerPort("localhost", 6000, ServerCredentials.Insecure) }
-    };
-
-    public void Start()
-    {
-        server.Start();
+        foreach (var meteoriteLanding in MeteoriteLandingData.GrpcMeteoriteLandings)
+        {
+            await responseStream.WriteAsync(meteoriteLanding);
+        }
     }
 
-    public async Task ShutdownAsync()
+    public override Task<MeteoriteLandingList> GetLargePayloadAsList(EmptyRequest request, ServerCallContext context)
     {
-        await server.ShutdownAsync();
+        return Task.FromResult(MeteoriteLandingData.GrpcMeteoriteLandingList);
+    }
+
+    public override Task<StatusResponse> PostLargePayload(MeteoriteLandingList request, ServerCallContext context)
+    {
+        return Task.FromResult(new StatusResponse { Status = "SUCCESS" });
     }
 }

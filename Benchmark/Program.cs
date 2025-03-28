@@ -2,7 +2,11 @@
 
 namespace Benchmark;
 
-public class Program
+class Program
 {
-    public static void Main(string[] args) => BenchmarkRunner.Run<BenchmarkHarness>();
+    static void Main(string[] args)
+    {
+        BenchmarkRunner.Run<BenchmarkHarness>();
+        Console.ReadKey();
+    }
 }

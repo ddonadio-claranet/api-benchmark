@@ -6,13 +6,22 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
-
     <ItemGroup>
-        <ProjectReference Include="..\ModelLibrary\ModelLibrary.csproj" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
+        <PackageReference Include="Grpc.Tools" Version="2.71.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
+      <ProjectReference Include="..\ModelLibrary\ModelLibrary.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="ModelLibrary">
+        <HintPath>..\Benchmark\bin\Debug\net8.0\ModelLibrary.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
