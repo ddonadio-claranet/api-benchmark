@@ -1,8 +1,8 @@
-﻿using Benchmark;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 
-static void Main(string[] args)
+namespace Benchmark;
+
+public class Program
 {
-    BenchmarkRunner.Run<BenchmarkHarness>();
-    Console.ReadKey();
+    public static void Main(string[] args) => BenchmarkRunner.Run<BenchmarkHarness>();
 }

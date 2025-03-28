@@ -80,3 +80,14 @@ public class BenchmarkHarness
     }
 }
 
+public class AllowNonOptimized : ManualConfig
+{
+    public AllowNonOptimized()
+    {
+        AddValidator(JitOptimizationsValidator.DontFailOnError);
+
+        AddLogger(DefaultConfig.Instance.GetLoggers().ToArray());
+        AddExporter(DefaultConfig.Instance.GetExporters().ToArray());
+        AddColumnProvider(DefaultConfig.Instance.GetColumnProviders().ToArray());
+    }
+}
