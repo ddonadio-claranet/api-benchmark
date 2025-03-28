@@ -8,6 +8,9 @@ I plan to add more APIs in the future, such as:
 - REST API with protocol buffer
 - REST API with gzip compression
 
+
+The data used is  the NASA meteorite landings data set of 1000 data points found at https://data.nasa.gov/resource/y77d-th95.json.
+
 ## How to run
 In three different terminals, run the following commands:
 ```bash
