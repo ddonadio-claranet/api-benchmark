@@ -9,31 +9,38 @@ public class RestClient
 {
     private static readonly HttpClient client = new();
 
+    const string requestUri = "http://localhost:5089/api/MeteoriteLandings";
+    
     public async Task<string> GetSmallPayloadAsync()
     {
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        SetupCall();
 
-        return await client.GetStringAsync("http://localhost:5000/api/MeteoriteLandings");
+        return await client.GetStringAsync(requestUri);
     }
+
+
 
     public async Task<List<MeteoriteLanding>> GetLargePayloadAsync()
     {
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        SetupCall();
 
-        var meteoriteLandingsString = await client.GetStringAsync("http://localhost:5000/api/MeteoriteLandings/LargePayload");
+        var meteoriteLandingsString = await client.GetStringAsync($"{requestUri}/LargePayload");
 
         return JsonSerializer.Deserialize<List<MeteoriteLanding>>(meteoriteLandingsString);
     }
 
     public async Task<string> PostLargePayloadAsync(List<MeteoriteLanding> meteoriteLandings)
     {
-        client.DefaultRequestHeaders.Accept.Clear();
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        SetupCall();
 
-        var response = await client.PostAsJsonAsync("http://localhost:5000/api/MeteoriteLandings/LargePayload", meteoriteLandings);
+        var response = await client.PostAsJsonAsync($"{requestUri}/LargePayload", meteoriteLandings);
 
         return await response.Content.ReadAsStringAsync();
+    }
+    
+    private static void SetupCall()
+    {
+        client.DefaultRequestHeaders.Accept.Clear();
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
 }

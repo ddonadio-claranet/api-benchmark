@@ -16,7 +16,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Protobuf Include="**/*.proto" />
+        <Protobuf Include="GRPC/MeteoriteLandings.proto" />
     </ItemGroup>
 
     <ItemGroup>

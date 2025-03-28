@@ -15,7 +15,7 @@ public class GrpcClient
     }
     public async Task<string> GetSmallPayloadAsync()
     {
-        return (await client.GetVersionAsync(new EmptyRequest())).ApiVersion;
+        return (await client.GetSmallPayloadAsync(new EmptyRequest())).ApiVersion;
     }
 
     public async Task<List<MeteoriteLanding>> StreamLargePayloadAsync()
