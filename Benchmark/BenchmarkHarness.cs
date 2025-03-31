@@ -15,6 +15,7 @@ public class BenchmarkHarness
 
     readonly RestClient restClient = new ();
     readonly GrpcClient grpcClient = new();
+    readonly RestWithGzipClient restWithGzipClient = new();
 
     [Benchmark]
     public async Task RestGetSmallPayloadAsync()
@@ -43,6 +44,35 @@ public class BenchmarkHarness
         }
     }
 
+    [Benchmark]
+    public async Task RestWithGzipGetSmallPayloadAsync()
+    {
+        for (var i = 0; i < IterationCount; i++)
+        {
+            await restClient.GetSmallPayloadAsync();
+        }
+    }
+
+    [Benchmark]
+    public async Task RestWithGzipGetLargePayloadAsync()
+    {
+        for (var i = 0; i < IterationCount; i++)
+        {
+            await restClient.GetLargePayloadAsync();
+        }
+    }
+
+    [Benchmark]
+    public async Task RestWithGzipPostLargePayloadAsync()
+    {
+        for (var i = 0; i < IterationCount; i++)
+        {
+            await restClient.PostLargePayloadAsync(MeteoriteLandingData.RestMeteoriteLandings);
+        }
+    }
+
+    
+    
     [Benchmark]
     public async Task GrpcGetSmallPayloadAsync()
     {

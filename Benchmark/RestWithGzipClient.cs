@@ -5,11 +5,11 @@ using ModelLibrary.REST;
 
 namespace Benchmark;
 
-public class RestClient
+public class RestWithGzipClient
 {
     private static readonly HttpClient client = new();
 
-    const string requestUri = "http://localhost:5128/api/MeteoriteLandings";
+    const string requestUri = "http://localhost:5089/api/MeteoriteLandings";
     
     public async Task<string> GetSmallPayloadAsync()
     {
